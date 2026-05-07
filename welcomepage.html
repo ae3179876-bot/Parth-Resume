@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Resume maker | Professional Resume Builder</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* buttons & badges */
+        .btn-primary {
+            background-color: #2563eb;
+            color: white;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 40px;
+            display: inline-block;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+        }
+        .btn-analyzer {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 40px;
+            display: inline-block;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2);
+        }
+        .btn-analyzer:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 1.5px solid #cbd5e1;
+            color: #1e293b;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 40px;
+            display: inline-block;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-outline:hover {
+            border-color: #2563eb;
+            background-color: #f8fafc;
+            transform: translateY(-2px);
+        }
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .badge {
+            background: #f1f5f9;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #0f172a;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .badge i {
+            color: #2563eb;
+            font-size: 0.9rem;
+        }
+
+        /* resume card */
+        .resume-card {
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            padding: 28px;
+            border: 1px solid #eef2ff;
+            transition: transform 0.2s;
+        }
+        .resume-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .resume-card .title {
+            color: #2563eb;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .section-title-sm {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #475569;
+            margin: 18px 0 8px 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 4px;
+        }
+        .exp-item {
+            margin-bottom: 14px;
+        }
+        .exp-item h4 {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .exp-date {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        /* logos grid */
+        .logo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            row-gap: 24px;
+            margin: 32px 0;
+        }
+        .logo-grid img {
+            height: 32px;
+            width: auto;
+            opacity: 0.7;
+            filter: grayscale(0.1);
+            transition: opacity 0.2s;
+        }
+        /* fallback text logos */
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #334155;
+            letter-spacing: -0.3px;
+        }
+
+        /* feature cards */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 32px;
+            margin: 48px 0;
+        }
+        .feature-card {
+            background: #f9fafb;
+            border-radius: 24px;
+            padding: 24px 20px;
+            transition: all 0.2s;
+            border: 1px solid #edf2f7;
+        }
+        .feature-card:hover {
+            background: white;
+            box-shadow: 0 12px 24px -12px rgba(0,0,0,0.1);
+            border-color: #e2e8f0;
+        }
+        .feature-icon {
+            background: #eef2ff;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            color: #2563eb;
+            font-size: 1.5rem;
+        }
+
+        /* template chips */
+        .template-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 28px 0 20px;
+        }
+        .chip {
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            cursor: default;
+        }
+        .chip:hover {
+            border-color: #2563eb;
+            background: #f0f4fe;
+        }
+
+        /* testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin: 48px 0;
+        }
+        .testimonial-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+            border: 1px solid #eef2ff;
+        }
+        .rating {
+            color: #fbbf24;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+        .quote {
+            font-style: normal;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #0f172a;
+        }
+        .author {
+            font-weight: 700;
+        }
+        .author-title {
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        footer {
+            background: #f8fafc;
+            margin-top: 70px;
+            padding: 60px 0 40px;
+            border-top: 1px solid #eef2ff;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-col h4 {
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col li {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 32px;
+            font-size: 0.8rem;
+            color: #5b6e8c;
+        }
+
+        @media (max-width: 860px) {
+            .hero-flex {
+                flex-direction: column;
+            }
+            .container {
+                padding: 0 20px;
+            }
+            .btn-primary, .btn-outline, .btn-analyzer {
+                padding: 10px 22px;
+            }
+        }
+        .hero-flex {
+            display: flex;
+            gap: 48px;
+            align-items: center;
+            margin: 50px 0 40px;
+        }
+        .hero-left {
+            flex: 1.2;
+        }
+        .hero-right {
+            flex: 0.9;
+        }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .star-rating {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 16px 0 24px;
+            flex-wrap: wrap;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #eef2ff;
+            margin: 20px 0;
+        }
+        .trust-badge {
+            background: #f9fafb;
+            border-radius: 100px;
+            padding: 4px 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- simple navbar hint (optional but clean) -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 24px 0 8px; flex-wrap: wrap;">
+        <div style="font-weight: 800; font-size: 1.7rem; letter-spacing: -0.5px;">Resume Maker<span style="color:#2563eb;">.</span></div>
+        
+    </div>
+
+    <!-- Hero Section with resume preview -->
+    <div class="hero-flex">
+        <div class="hero-left">
+            <h1>Build a Professional Resume That Gets You Hired Faster</h1>
+            <p style="font-size: 1.2rem; color: #334155; margin: 16px 0 20px;">Create ATS-friendly resumes in minutes with AI assistance and stand out from the competition.</p>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                <a href="/login" class="btn-primary" id="startBtn">
+                    <i class="fas fa-pen-fancy"></i> Create My Resume
+                </a>
+                <a href="/analyzer" class="btn-analyzer">
+                    <i class="fas fa-robot"></i> Analyze My Resume
+                </a>
+            </div>
+            <div class="badge-group">
+                <span class="badge"><i class="fas fa-robot"></i> AI Writing Assistant</span>
+                <span class="badge"><i class="fas fa-chart-line"></i> ATS Optimized</span>
+                <span class="badge"><i class="fas fa-download"></i> Instant Download</span>
+            </div>
+            <div class="star-rating">
+                <span style="color:#f59e0b;">★★★★★</span>
+                <span style="font-weight: 500;">Loved by job seekers worldwide</span>
+                <span class="trust-badge">4.8/5 (2,436 reviews)</span>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="resume-card">
+                <h3>James Anderson</h3>
+                <div class="title">Marketing Manager</div>
+                <div class="section-title-sm">PROFESSIONAL SUMMARY</div>
+                <p style="font-size: 0.85rem;">Build an online marketing resume with 5+ years of experience in digital marketing, brand strategy, account management, Project Lead, and content creation for clients across various industries.</p>
+                <div class="section-title-sm">EXPERIENCE</div>
+                <div class="exp-item">
+                    <h4>Senior Marketing Manager</h4>
+                    <div class="exp-date">Test Solutions Inc., 2017 - Present</div>
+                    <ul style="margin-left: 18px; font-size: 0.8rem; color:#334155;">
+                        <li>Led marketing campaigns to increase brand awareness by 45%</li>
+                        <li>Managed all aspects of marketing operations</li>
+                        <li>Developed and executed digital marketing strategies</li>
+                    </ul>
+                </div>
+                <div class="exp-item">
+                    <h4>Marketing Specialist</h4>
+                    <div class="exp-date">Digital Agency Co., 2019 - 2021</div>
+                    <ul style="margin-left: 18px; font-size: 0.8rem; color:#334155;">
+                        <li>Created and managed social media campaigns that improved engagement by 80%</li>
+                        <li>Managed paid media accounts and advertising campaigns</li>
+                    </ul>
+                </div>
+                <div class="section-title-sm">EDUCATION</div>
+                <p style="font-size:0.85rem;">Bachelor of Business Administration<br>University of California, Los Angeles - 2019</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trusted by + company logos -->
+    <div style="text-align: center; margin: 20px 0 20px;">
+        <p style="font-weight: 600; color:#1e293b;">TRUSTED BY 500,000+ JOB SEEKERS AND PROFESSIONALS</p>
+        <div class="logo-grid">
+            <span class="logo-text">Google</span>
+            <span class="logo-text">Microsoft</span>
+            <span class="logo-text">amazon</span>
+            <span class="logo-text">Deloitte</span>
+            <span class="logo-text">accenture</span>
+            <span class="logo-text">IBM</span>
+            <span class="logo-text">Infosys</span>
+            <span class="logo-text">LCS</span>
+        </div>
+    </div>
+
+    <!-- Professional Resume Templates section -->
+    <div style="margin: 60px 0 20px;">
+        <h2 style="font-size: 2rem; font-weight: 700;">Professional Resume Templates for Every Industry</h2>
+        <p style="color: #475569; margin-top: 12px;">Choose from 20+ ATS-friendly templates designed by HR experts</p>
+      
+    </div>
+
+    <!-- Everything You Need to Get Hired (feature grid) -->
+    <div style="margin: 60px 0 10px;">
+        <h2 style="font-size: 2rem; font-weight: 700;">Everything You Need to Get Hired</h2>
+        <p style="color: #475569;">Powerful tools and features to create the perfect resume</p>
+    </div>
+    <div class="feature-grid">
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-robot"></i></div><h3 style="margin-bottom: 10px;">AI-Powered Writing</h3><p style="color:#475569;">Get AI suggestions to write better job descriptions and summaries.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-chart-simple"></i></div><h3 style="margin-bottom: 10px;">ATS Optimization</h3><p style="color:#475569;">Ensure your resume passes ATS scans and reaches recruiters.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-file-pdf"></i></div><h3 style="margin-bottom: 10px;">Multiple Formats</h3><p style="color:#475569;">Download PDF, Word, or shareable link formats.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-chart-line"></i></div><h3 style="margin-bottom: 10px;">Resume Analyzer</h3><p style="color:#475569;">Create detailed breakdowns and improve your resume score.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-envelope-open-text"></i></div><h3 style="margin-bottom: 10px;">Cover Letter Builder</h3><p style="color:#475569;">Custom personalized cover letters that complement your resume.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-bullhorn"></i></div><h3 style="margin-bottom: 10px;">Deloitte Web</h3><p style="color:#475569;">Discover how to optimize your resume for hiring managers.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fas fa-brain"></i></div><h3 style="margin-bottom: 10px;">Mindshift</h3><p style="color:#475569;">Mindset shift for success.</p></div>
+    </div>
+
+    <!-- What Our Users Say - Testimonials -->
+    <div style="margin: 40px 0 20px;">
+        <h2 style="font-size: 2rem; font-weight: 700; text-align: center;">What Our Users Say</h2>
+        <p style="text-align: center; color:#475569;">Join thousands of successful job seekers</p>
+    </div>
+    <div class="testimonial-grid">
+        <div class="testimonial-card">
+            <div class="rating">★★★★★</div>
+            <div class="quote">“AI-Powered writing made me create a professional resume that got me 3 job interviews in just one week. Highly recommended!”</div>
+            <div class="author">Sarah Johnson</div>
+            <div class="author-title">Marketing Manager</div>
+        </div>
+        <div class="testimonial-card">
+            <div class="rating">★★★★★</div>
+            <div class="quote">“The ATS optimization feature is fantastic. My resume score improved from 65 to 95!”</div>
+            <div class="author">Michael Chen</div>
+            <div class="author-title">Software Engineer</div>
+        </div>
+        <div class="testimonial-card">
+            <div class="rating">★★★★★</div>
+            <div class="quote">“Easy to use, professional templates, and excellent AI suggestions. Worth every penny!”</div>
+            <div class="author">Emily Rodriguez</div>
+            <div class="author-title">Product Designer</div>
+        </div>
+    </div>
+
+    <!-- media logos row: Forbes, HR.com, Entrepreneur etc -->
+    <div class="logo-grid" style="border-top: 1px solid #eef2ff; border-bottom: 1px solid #eef2ff; padding: 28px 0; margin: 20px 0 20px;">
+        <span class="logo-text">Forbes</span>
+        <span class="logo-text">HR.com</span>
+        <span class="logo-text">Entrepreneur</span>
+        <span class="logo-text">Inc.</span>
+        <span class="logo-text">PSTMENNY</span>
+        <span class="logo-text">Mashable</span>
+        <span class="logo-text">TEDIUS</span>
+    </div>
+</div> <!-- end container -->
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4 style="font-size: 1.3rem; margin-bottom: 12px;">Make Your Resume</h4>
+                <p style="margin-bottom: 20px; font-size: 0.9rem;">Resume maker helps job seekers create professional, ATS-friendly resumes that get results. Build your career with confidence.</p>
+                <a href="#" style="color:#2563eb; font-weight: 500;">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="footer-col">
+                <h4>PRODUCT</h4>
+                <ul><li>Resume Builder</li><li>Templates</li><li>Resume Analyzer</li><li>CV Builder</li><li>Cover Letter Builder</li><li>Proofread</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>RESOURCES</h4>
+                <ul><li>Resume Examples</li><li>Career Tips</li><li>Writing Tips</li><li>Job Search Guide</li><li>ATS Guide</li><li>Help Center</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>COMPANY</h4>
+                <ul><li>About Us</li><li>Careers</li><li>Contact Us</li><li>Press Kit</li><li>Affiliate Program Partners</li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>SUPPORT</h4>
+                <ul><li>Help Center</li><li>Contact Support</li><li>Privacy Policy</li><li>Terms of Service</li><li>Cookie Policy</li></ul>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 Resume maker — Smart resume builder. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+<!-- Firebase scripts -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    
+    const firebaseConfig = {
+        apiKey: "AIzaSyAiTq3V_SLcOuyB1Vr4hwT0ex_ZLdIeX8g",
+        authDomain: "resume-s-acc5e.firebaseapp.com",
+        projectId: "resume-s-acc5e",
+        storageBucket: "resume-s-acc5e.firebasestorage.app",
+        messagingSenderId: "798882155632",
+        appId: "1:798882155632:web:995920957c5cbd5d1a78b5"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    
+    document.getElementById("startBtn").addEventListener("click", (e) => {
+        if (auth.currentUser) {
+            e.preventDefault();
+            window.location.href = "/userpage";
+        } else {
+            window.location.href = "/login";
+        }
+    });
+</script>
+</body>
+</html>
