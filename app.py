@@ -19,7 +19,7 @@ print(f"🔑 API Key loaded: {'✅ Yes' if GROQ_API_KEY else '❌ No'}")
 # ================= HTML ROUTES =================
 @app.route('/')
 def py():
-    return send_from_directory('.', 'welcomepage.html')
+   return send_from_directory('.', 'welcomepage.html')
 
 @app.route('/login')
 def login():
